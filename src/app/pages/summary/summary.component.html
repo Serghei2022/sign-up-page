@@ -1,0 +1,47 @@
+<div class="summary-container">
+  <form (ngSubmit)="onSubmit()" [formGroup]="summaryForm" class="summary-form">
+    <h2>Summary</h2>
+    <h4>Company data</h4>
+    <div class="form-group inline-group">
+      <label>Name:</label>
+      <span>{{ summaryForm.get('name')?.value }}</span>
+    </div>
+    <div class="form-group inline-group">
+      <label>Industry:</label>
+      <span>{{ summaryForm.get('industry')?.value }}</span>
+    </div>
+    <h4>User Data</h4>
+    <div class="form-group inline-group">
+      <label>First Name:</label>
+      <span>{{ summaryForm.get('firstname')?.value }}</span>
+    </div>
+    <div class="form-group inline-group">
+      <label>Last Name:</label>
+      <span>{{ summaryForm.get('lastname')?.value }}</span>
+    </div>
+    <div class="form-group inline-group">
+      <label>Username:</label>
+      <span>{{ summaryForm.get('username')?.value }}</span>
+    </div>
+    <div class="form-group inline-group">
+      <label>Email:</label>
+      <span>{{ summaryForm.get('email')?.value }}</span>
+    </div>
+    <div class="form-group checkbox-group">
+      <label>
+        <input type="checkbox" formControlName="terms">
+        I agree with terms and conditions.
+      </label>
+    </div>
+    <div class="form-group checkbox-group">
+      <label>
+        <input type="checkbox" formControlName="privacy">
+        I agree with the privacy policy.
+      </label>
+    </div>
+    <div *ngIf="!isFormValid" class="error-message">
+      Please fill out all required fields and agree to the terms and privacy policy.
+    </div>
+    <button type="submit" [disabled]="!isFormValid">Submit</button>
+  </form>
+</div>

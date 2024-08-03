@@ -1,0 +1,24 @@
+<div class="company-container">
+  <form [formGroup]="companyForm" (ngSubmit)="onNext()" class="company-form">
+    <h2>Company details</h2>
+    <div>
+      <label for="name">Name</label>
+      <input type="text" id="name" formControlName="name" required>
+      <div *ngIf="companyForm.get('name')?.touched && companyForm.get('name')?.invalid" class="error-message">
+        Name is required.
+      </div>
+    </div>
+    <div>
+      <label for="industry">Industry</label>
+      <select id="industry" formControlName="industry" required>
+        <option value="" disabled>Select an industry</option>
+        <option *ngFor="let industry of industries" [value]="industry.id">{{ industry.name }}</option>
+      </select>
+      <div *ngIf="companyForm.get('industry')?.touched && companyForm.get('industry')?.invalid" class="error-message">
+        Industry is required.
+      </div>
+    </div>
+    <!-- <button type="submit">Next</button> -->
+    <button type="submit" [disabled]="companyForm.invalid">Next</button>
+  </form>
+</div>

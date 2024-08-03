@@ -1,0 +1,51 @@
+<div class="user-container">
+  <form [formGroup]="userForm" (ngSubmit)="onNext()" class="user-form">
+    <h2>User Data</h2>
+    <div class="form-group">
+      <label for="firstname">First name</label>
+      <input type="text" id="firstname" formControlName="firstname" required>
+      <div *ngIf="userForm.get('firstname')?.touched && userForm.get('firstname')?.invalid" class="error-message">
+        First name is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastname">Last name</label>
+      <input type="text" id="lastname" formControlName="lastname" required>
+      <div *ngIf="userForm.get('lastname')?.touched && userForm.get('lastname')?.invalid" class="error-message">
+        Last name is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="username">User name</label>
+      <input type="text" id="username" formControlName="username" required>
+      <div *ngIf="userForm.get('username')?.touched && userForm.get('username')?.invalid" class="error-message">
+        User name is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password1">Password</label>
+      <input type="password" id="password1" formControlName="password1" required>
+      <div *ngIf="userForm.get('password1')?.touched && userForm.get('password1')?.invalid" class="error-message">
+        Password is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password2">Repeat password</label>
+      <input type="password" id="password2" formControlName="password2" required>
+      <div *ngIf="userForm.get('password2')?.touched && userForm.get('password2')?.invalid" class="error-message">
+        Password is required.
+      </div>
+      <div *ngIf="userForm.errors?.['passwordsMismatch'] && userForm.get('password2')?.touched" class="error-message">
+        Passwords do not match.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email">
+      <div *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid" class="error-message">
+        Invalid email format.
+      </div>
+    </div>
+    <button type="submit" [disabled]="userForm.invalid">Next</button>
+  </form>
+</div>
