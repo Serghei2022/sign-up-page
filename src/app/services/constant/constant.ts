@@ -3,6 +3,7 @@ export const Constant = {
   METHODS: {
     GET_ALL_INDUSTRIES: 'industries',
     GET_INDUSTRY: 'industries/',
+    GET_USER: 'users/',
     POST_COMPANY: 'companies',
     POST_USER: 'users'
   }

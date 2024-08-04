@@ -17,9 +17,12 @@
     </div>
     <div class="form-group">
       <label for="username">User name</label>
-      <input type="text" id="username" formControlName="username" required>
+      <input type="text" id="username" formControlName="username" required (blur)="checkUsernameExists()">
       <div *ngIf="userForm.get('username')?.touched && userForm.get('username')?.invalid" class="error-message">
         User name is required.
+      </div>
+      <div *ngIf="usernameExists" class="error-message">
+        User name already exists.
       </div>
     </div>
     <div class="form-group">
@@ -46,6 +49,6 @@
         Invalid email format.
       </div>
     </div>
-    <button type="submit" [disabled]="userForm.invalid">Next</button>
+    <button type="submit" [disabled]="userForm.invalid || usernameExists">Next</button>
   </form>
 </div>

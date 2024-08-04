@@ -49,4 +49,8 @@ export class UserService {
         catchError(this.handleError)
       );
   }
+
+  getUser(Username: string): Observable<HttpResponse<any>> {
+    return this.http.get<any>(Constant.API_END_POINT + Constant.METHODS.GET_USER + Username, { observe: 'response' });
+  }
 }

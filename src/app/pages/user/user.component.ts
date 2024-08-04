@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SignupService } from '../../services/data/signup.service';
+import { UserService } from '../../services/user.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user',
@@ -14,11 +16,13 @@ import { SignupService } from '../../services/data/signup.service';
 })
 export class UserComponent implements OnInit {
   userForm: FormGroup;
+  usernameExists: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private signupService: SignupService
+    private signupService: SignupService,
+    private userService: UserService
   ) {
     this.userForm = this.fb.group({
       firstname: ['', [Validators.required, Validators.maxLength(50)]],
@@ -61,6 +65,29 @@ export class UserComponent implements OnInit {
       return null;
     }
     return { invalidEmail: true };
+  }
+
+  checkUsernameExists() {
+    const username = this.userForm.get('username')?.value;
+    if (username) {
+      this.userService.getUser(username).subscribe({
+        next: (response: HttpResponse<any>) => {
+          // console.log('User Service Response: ', response);
+          if (response.status === 200 && response.body === null) {
+            this.usernameExists = false;
+          } else {
+            this.usernameExists = true;
+          }
+        },
+        error: (error) => {
+          if (error.status === 404) {
+            this.usernameExists = false;
+          } else {
+            console.error('Error checking username:', error);
+          }
+        }
+      });
+    }
   }
 
   onNext() {
